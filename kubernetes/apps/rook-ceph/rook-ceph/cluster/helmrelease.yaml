@@ -42,6 +42,7 @@ spec:
               - *host
     toolbox:
       enabled: true
+
     configOverride: |
       [global]
       osd_pool_default_size = 1
@@ -52,24 +53,30 @@ spec:
       bdev_enable_discard = true
       bdev_async_discard = true
       osd_class_update_on_start = false
+
     cephClusterSpec:
       network:
         provider: host
         connections:
           compression:
             enabled: true
+
       mon:
         count: 1
         allowMultiplePerNode: true
+
       mgr:
         count: 1
         allowMultiplePerNode: true
+
       crashCollector:
         disable: false
+
       dashboard:
         enabled: true
         urlPrefix: /
         ssl: false
+
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -79,6 +86,51 @@ spec:
           - name: k8s-0
             devices:
               - name: /dev/disk/by-id/nvme-PC_SN740_NVMe_WD_256GB_22241R800861-part3
+
+      resources:
+        mgr:
+          requests:
+            cpu: "125m"
+            memory: "550M"
+          limits:
+            memory: "1200M"
+        mon:
+          requests:
+            cpu: "50m"
+            memory: "500M"
+          limits:
+            memory: "1060M"
+        osd:
+          requests:
+            cpu: "450m"
+            memory: "2600M"
+          limits:
+            memory: "6000M"
+        mgr-sidecar:
+          requests:
+            cpu: "50m"
+            memory: "100M"
+          limits:
+            memory: "210M"
+        crashcollector:
+          requests:
+            cpu: "15m"
+            memory: "64M"
+          limits:
+            memory: "64M"
+        logcollector:
+          requests:
+            cpu: "100m"
+            memory: "100M"
+          limits:
+            memory: "1G"
+        cleanup:
+          requests:
+            cpu: "250m"
+            memory: "100M"
+          limits:
+            memory: "1G"
+
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -102,5 +154,6 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
+
     cephFileSystems: []
     cephObjectStores: []
