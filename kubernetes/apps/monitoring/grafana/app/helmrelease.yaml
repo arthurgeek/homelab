@@ -97,6 +97,9 @@ spec:
         hubble-dashboard:
           url: https://raw.githubusercontent.com/cilium/cilium/v1.13.2/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
           datasource: Prometheus
+        hubble-metrics:
+          url: https://raw.githubusercontent.com/cilium/cilium/v1.14.0-rc.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-l7-http-metrics-by-workload.json
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860-node-exporter-full/
         node-exporter-full:
           gnetId: 1860
@@ -119,6 +122,10 @@ spec:
           datasource: Prometheus
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          datasource: Prometheus
+        kubernetes-pod-storage:
+          gnetId: 11454
+          revision: 14
           datasource: Prometheus
         ingress-nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
